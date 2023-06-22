@@ -11,7 +11,7 @@ const Article = db.define('articles', {
 // queries to execute in order by chaining with `then`.
 
 // Q1: This query finds the article with id of 2
-Article.findById(2)
+Article.findByPk(2)
 .then(article => {
   console.log('# Article with id=2');
   console.log(article.dataValues);

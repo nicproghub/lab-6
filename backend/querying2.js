@@ -27,11 +27,11 @@ Employees.findOne({ include: [Companies] }).then(employee => {
   profit: 10.0
 }))
 .then(c => {
-  return Employees.findById(1).then(e => e.update({companyId: c.id}));
+  return Employees.findByPk(1).then(e => e.update({companyId: c.id}));
 })
 .then(() => {
   // Q3: Shows that the companyId attribute for employee with id 1 has been updated
-  return Employees.findById(1).then(employee => {
+  return Employees.findByPk(1).then(employee => {
     console.log(employee.dataValues);
   });
 })
