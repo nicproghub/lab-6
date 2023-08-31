@@ -50,4 +50,7 @@ Employees.findOne({ include: [Companies] }).then(employee => {
 // Exercise 4
 // *** TODO: Insert code here ***
 
+// Exercise 5
+// *** TODO: Insert code here ***  
+
 .catch(console.error).then(() => db.close());
