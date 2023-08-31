@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('./connect_db');
+const { Op } = require("sequelize");
 
 // Tell Sequelize about the 'articles' table.
 const Article = db.define('articles', {
