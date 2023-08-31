@@ -31,7 +31,7 @@ Article.findByPk(2)
 // Q3:  This query finds all articles with id between 1 and 2
 .then(() => Article.findAll({
   where: {
-    id: { $between: [1, 2] }
+    id:{[Op.between]: [1, 2]} 
   }
 }))
 .then(articles => {
