@@ -44,9 +44,10 @@ Article.findByPk(2)
 })
 
 // Q4: This query finds all articles with id greater than 3 and then destroys them.
+// Notes: old syntax using $gt is now replaced by Op.gt  
 .then(() => Article.findAll({
   where: {
-    id: { $gt: 3 }
+    id: { [Op.gt]: 3 }
   }
 }))
 .then(articles => {
