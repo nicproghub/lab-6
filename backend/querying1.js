@@ -70,9 +70,53 @@ Article.findByPk(2)
 
 // Exercise 1
 // *** TODO: Insert code here ***
+//method 1 
+/*
+.then(()=>Article.findAll({
+  where: {
+    //find id = 1 or 3 
+    id:{[Op.in]:[1,3]} 
+  }
+})
+)
+*/
+//method 2
+.then(()=>Article.findAll({
+  where: {
+    //find id = 1 or 3 
+    id:[1,3] 
+  }
+})
+)
+.then(articles => { //articels = array of records returned from Article.findAll
+  console.log('# Articles with id either 1 or 3');
+  articles.forEach(article => {
+    console.log(article.dataValues);
+  })
+  console.log();
+})
 
 // Exercise 2
 // *** TODO: Insert code here ***
+.then(()=>Article.findByPk(2))
+.then(article=>{ //update record
+  if (article) {
+    return article.update({content: "Sequelize is the worst ORM ever!"});
+  }else{
+    console.log('Article not found');
+  }
+})  
+.then(a_log =>{ //wait until update then output
+  if (a_log) {
+    console.log('Article with id=2 updated');
+    console.log(a_log.dataValues);
+    console.log();
+  }
+})
+.catch(err=> {
+    console.error('Error:', err);
+})
+
 
 // Close the database connection.
 .catch(console.error).then(() => db.close());

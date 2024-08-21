@@ -47,10 +47,86 @@ Employees.findOne({ include: [Companies] }).then(employee => {
 // Exercise 3
 // *** TODO: Insert code here ***
 
+.then(()=>Employees.findOne({
+  where: {name:"Peter Rabbit"},
+  include:{
+    model: Companies
+    //attributes: ["id", "name", "profit"]
+  }
+}))
+.then(e=>{
+  console.log(e.company.dataValues);
+  console.log();
+})
+
+
+
 // Exercise 4
 // *** TODO: Insert code here ***
+// Method 1:
+
+.then(()=>Companies.findOne({
+  order: [["profit", "DESC"]], 
+  include: {
+    model: Employees
+  }
+}))
+.then(HighP =>{
+  HighP.employees.forEach(employee => {
+    console.log(employee.dataValues);
+  });
+  //console.log(Array.isArray(HighP.employees));
+  console.log();
+})
+
+
+// Method 2:
+
+.then(()=>Companies.findOne({
+  order: [["profit", "DESC"]]
+}))
+.then(HighP_C =>{
+  console.log("High Profit", HighP_C.dataValues);
+  console.log(HighP_C.id);
+  return Employees.findAll({
+    where: {companyId: HighP_C.id}
+  })
+})
+.then(HighP_E =>{
+  console.log("Employees from company with the highest Profit:");
+  HighP_E.forEach(employee => {
+    console.log(employee.dataValues);
+  });
+  //console.log(Array.isArray(HighP.employees));
+  console.log();
+})
+
+
 
 // Exercise 5
 // *** TODO: Insert code here ***  
+// Creates a new employee and makes the employee in company id =1
+//.then(()=> Employees.findByPk(4))
+//.then(des_emp => des_emp.destroy())
+//Or 
+.then(()=>Employees.destroy(
+  {where: {id: 5}}
+))
+.then(() => Employees.create({
+  id: 11,
+  name: 'Peter Junior',
+  age: 2,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  companyId: 1
+}))
+.then(()=> Employees.findAll())
+  // Shows that the employees table has been updated
+.then(employees=> {
+  employees.forEach(employee => {
+    console.log(employee.dataValues);
+  });
+})
+
 
 .catch(console.error).then(() => db.close());
